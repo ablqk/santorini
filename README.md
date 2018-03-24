@@ -2,4 +2,4 @@ A RESTful-API-based version of the board game Santorini, by Dr. Gordon Hamilton,
 
 # Work in progress
 
-See [TODO lit](TODO list)
+See [TODO list](./TODO)
