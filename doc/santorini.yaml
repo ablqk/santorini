@@ -42,6 +42,13 @@ paths:
   /games/{gameID}/play/{playerID}:
     post:
       summary: play for this player
+      requestBody:
+        description: The action of one player's turn
+          required: true
+          content:
+            application/json:
+              schema:
+                - $ref: "#/descriptions/playAction"
       responses:
         200:
           summary: Next move accepted.
@@ -75,3 +82,20 @@ descriptions:
         properties:
           x: int
           y: int
+
+  playAction:
+    required: [action,position]
+    properties:
+      action:
+        type: string
+        enum: [move,build]
+      position:
+        type: object
+        properties:
+          x: int
+          y: int
+      pawn:
+        type: string
+        enum:
+          - "man"
+          - "woman"
