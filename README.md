@@ -2,7 +2,7 @@ A RESTful-API-based version of the board game Santorini, by Dr. Gordon Hamilton,
 
 # Quickstart
 
-	TODO
+	go run cmd/webserver/main.go
 
 # Work in progress
 
