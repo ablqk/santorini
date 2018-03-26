@@ -3,6 +3,7 @@ package data
 import (
 	"time"
 	"github.com/satori/go.uuid"
+	"errors"
 )
 
 var games = map[string]Game{}
@@ -33,10 +34,10 @@ func CreateGame() (Game, error) {
 	return game, nil
 }
 
-//func LoadGame(id string) (*Game, error) {
-//	game, ok := games[id]
-//	if !ok {
-//		return nil, errors.New("Cannot find game with id " + id)
-//	}
-//	return &game, nil
-//}
+func FindGame(id string) (*Game, error) {
+	game, ok := games[id]
+	if !ok {
+		return nil, errors.New("Cannot find game with id " + id)
+	}
+	return &game, nil
+}

@@ -1,18 +1,11 @@
 package definitions
 
-type Game struct {
-	GameID         string `json:"gameID"`
-	NextPlayerID   string `json:"nextPlayerID"`
-	SecondPlayerID string `json:"secondPlayerID"`
-	Board          Board
-}
-
-type Board struct {
+type board struct {
 	Squares [][]int `json:"squares"`
-	Pawns   []Pawn  `json:"pawns"`
+	Pawns   []pawn  `json:"pawns"`
 }
 
-type Pawn struct {
+type pawn struct {
 	Type     PawnType `json:"type"`
 	PlayerID string   `json:"playerID"`
 	Position struct {
@@ -21,9 +14,12 @@ type Pawn struct {
 	} `json:"position"`
 }
 
+// PawnType represents the different types of pawn.
 type PawnType string
 
 const (
-	PawnMan   PawnType = "man"
+	// PawnWoman is the woman version.
 	PawnWoman PawnType = "woman"
+	// PawnMan is the man version.
+	PawnMan PawnType = "man"
 )
