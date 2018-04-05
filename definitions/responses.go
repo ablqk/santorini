@@ -10,7 +10,7 @@ type GameResponse struct {
 	GameID         string `json:"gameID"`
 	NextPlayerID   string `json:"nextPlayerID"`
 	SecondPlayerID string `json:"secondPlayerID"`
-	Board          board
+	Board          board  `json:"board"`
 }
 
 // Marshal transforms the GameResponse object into its json representation.

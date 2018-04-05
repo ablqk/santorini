@@ -1,8 +1,8 @@
 package definitions
 
 type board struct {
-	Squares [][]int `json:"squares"`
-	Pawns   []pawn  `json:"pawns"`
+	Squares [][]int `json:"squares,omitempty"`
+	Pawns   []pawn  `json:"pawns,omitempty"`
 }
 
 type pawn struct {
