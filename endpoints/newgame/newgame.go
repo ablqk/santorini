@@ -45,5 +45,8 @@ func newGame(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	fmt.Fprintf(w, "%s\n", resp)
+
+	// header
+	w.Header().Set("Content-Type", "application/json")
 	return nil
 }

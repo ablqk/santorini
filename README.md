@@ -6,4 +6,4 @@ A RESTful-API-based version of the board game Santorini, by Dr. Gordon Hamilton,
 
 # Work in progress
 
-See [TODO list](../blob/master/TODO)
+See [TODO list](../master/TODO.md)

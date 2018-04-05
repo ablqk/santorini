@@ -7,7 +7,8 @@
 ## General
 
 ## Endpoints
-* Fix : return mime-type json
+
+* A lot can be factorized.
 
 ### Create new game
 * Fix : return 201

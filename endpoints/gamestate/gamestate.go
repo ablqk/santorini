@@ -51,5 +51,7 @@ func gameState(w http.ResponseWriter, gameID string) error {
 	}
 
 	fmt.Fprintf(w, "%s\n", resp)
+
+	w.Header().Set("Content-Type", "application/json")
 	return nil
 }
