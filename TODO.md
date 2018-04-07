@@ -8,11 +8,6 @@
 
 ## Endpoints
 
-* A lot can be factorized.
-
-### Create new game
-* Fix : return 201
-
 ### Game state
 * Return 404 when relevant
 

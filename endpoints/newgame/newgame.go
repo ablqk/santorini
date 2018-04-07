@@ -2,51 +2,46 @@
 package newgame
 
 import (
-	"fmt"
 	"net/http"
 	"github.com/ablqk/santorini/data"
 	"github.com/ablqk/santorini/definitions"
+	"github.com/ablqk/santorini/endpoints"
 )
 
 const (
 	// Path is he path for this endpoint.
 	Path = "/games"
-	// Verb is he HTTP Verb for this endpoint.
-	Verb = http.MethodPost
 )
 
-// NewHandler creates the handler for this endpoint.
-func NewHandler() http.Handler {
-	return handler{}
+type endpoint struct {
 }
 
-type handler struct {
-}
-
-// ServeHTTP serves the request.
-func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	err := newGame(w, r)
-	if err != nil {
-		http.Error(w, "error while creating new game", http.StatusInternalServerError)
-	}
-}
-
-func newGame(w http.ResponseWriter, r *http.Request) error {
-	fmt.Println("Serving.")
-
+// Serve serves the request.
+func (e endpoint) Serve(r *http.Request) (definitions.Response, error) {
 	game, err := data.CreateGame()
 	if err != nil {
-		return err
+		return definitions.GameResponse{}, err
 	}
 
-	resp, err := definitions.NewGameResponse(game).Marshal()
-	if err != nil {
-		return err
-	}
+	resp := definitions.NewGameResponse(game)
+	return resp, nil
+}
 
-	fmt.Fprintf(w, "%s\n", resp)
+func (e endpoint) NominalResponse() int {
+	return http.StatusCreated
+}
 
-	// header
-	w.Header().Set("Content-Type", "application/json")
-	return nil
+// Path implementation of Endpoint
+func (e endpoint) Path() string {
+	return Path
+}
+
+// Verb implementation of Endpoint
+func (e endpoint) Verb() string {
+	return http.MethodPost
+}
+
+// NewEndpoint creates the handler for this endpoint.
+func NewEndpoint() endpoints.Endpoint {
+	return endpoint{}
 }

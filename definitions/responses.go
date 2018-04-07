@@ -5,7 +5,12 @@ import (
 	"encoding/json"
 )
 
-// GameResponse dscribes a game and its state.
+// Response Represents an API response.
+type Response interface {
+	Marshal() ([]byte, error)
+}
+
+// GameResponse describes a game and its state.
 type GameResponse struct {
 	GameID         string `json:"gameID"`
 	NextPlayerID   string `json:"nextPlayerID"`
