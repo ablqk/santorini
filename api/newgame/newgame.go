@@ -3,9 +3,8 @@ package newgame
 
 import (
 	"net/http"
-	"github.com/ablqk/santorini/data"
-	"github.com/ablqk/santorini/definitions"
-	"github.com/ablqk/santorini/endpoints"
+	"github.com/ablqk/santorini/api"
+	"github.com/ablqk/santorini/service"
 )
 
 const (
@@ -17,13 +16,13 @@ type endpoint struct {
 }
 
 // Serve serves the request.
-func (e endpoint) Serve(r *http.Request) (definitions.Response, error) {
-	game, err := data.CreateGame()
+func (e endpoint) Serve(r *http.Request) (api.Response, error) {
+	game, err := service.NewGame()
 	if err != nil {
-		return definitions.GameResponse{}, err
+		return api.GameResponse{}, err
 	}
 
-	resp := definitions.NewGameResponse(game)
+	resp := api.NewGameResponse(game)
 	return resp, nil
 }
 
@@ -42,6 +41,6 @@ func (e endpoint) Verb() string {
 }
 
 // NewEndpoint creates the handler for this endpoint.
-func NewEndpoint() endpoints.Endpoint {
+func NewEndpoint() api.Endpoint {
 	return endpoint{}
 }

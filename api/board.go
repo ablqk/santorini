@@ -1,4 +1,4 @@
-package definitions
+package api
 
 type board struct {
 	Squares [][]int `json:"squares,omitempty"`

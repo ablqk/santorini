@@ -5,14 +5,18 @@
 * Create quickstart guide
 
 ## General
+* HTTP errors
+* Wrap errors on return
 
 ## Endpoints
 
 ### Game state
 * Return 404 when relevant
+* Return board with zeros, not empty.
 
 ## Play one turn
-* up one square
 * move a pawn
-* return error when it's not your turn
 
+# CLI client
+
+The idea is to implement a client to play in a console. Because why not.

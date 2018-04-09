@@ -3,20 +3,17 @@ package data
 //boardSize is the size of one side of the board, in squares.
 const boardSize = 5
 
-type Square struct {
-	height int
-}
-
+// Board represents a board.
 type Board struct {
-	Squares [][]Square
+	Squares [][]int
 }
 
 func makeBoard() Board {
-	board := make([][]Square, boardSize)
+	board := make([][]int, boardSize)
 	for i := range board {
-		board[i] = make([]Square, boardSize)
+		board[i] = make([]int, boardSize)
 		for j := range board[i] {
-			board[i][j] = Square{}
+			board[i][j] = 0
 		}
 	}
 	return Board{board}

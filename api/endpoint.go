@@ -1,9 +1,8 @@
-package endpoints
+package api
 
 import (
 	"net/http"
 	"encoding/json"
-	"github.com/ablqk/santorini/definitions"
 )
 
 // Endpoint defines a JSON endpoint.
@@ -11,7 +10,7 @@ type Endpoint interface {
 	Path() string
 	Verb() string
 	NominalResponse() int
-	Serve(r *http.Request) (definitions.Response, error)
+	Serve(r *http.Request) (Response, error)
 }
 
 // NewHandler creates a Handler for a given Endpoint.

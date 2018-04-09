@@ -21,5 +21,6 @@ func newPlayer() Player {
 
 // Pawn describes the position of one pawn.
 type Pawn struct {
-	Position *Square
+	X int
+	Y int
 }

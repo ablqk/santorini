@@ -1,4 +1,4 @@
-package definitions
+package api
 
 import (
 	"github.com/ablqk/santorini/data"
@@ -33,5 +33,8 @@ func NewGameResponse(game data.Game) GameResponse {
 		GameID:         game.GameID,
 		NextPlayerID:   game.Players[0].PlayerID,
 		SecondPlayerID: game.Players[1].PlayerID,
+		Board: board{
+			Squares: game.Board.Squares,
+		},
 	}
 }

@@ -3,33 +3,32 @@ package gamestate
 
 import (
 	"net/http"
-	"github.com/ablqk/santorini/data"
-	"github.com/ablqk/santorini/definitions"
-	"github.com/ablqk/santorini/endpoints"
 	"github.com/gorilla/mux"
+	"github.com/ablqk/santorini/api"
+	"github.com/ablqk/santorini/service"
 )
 
 const (
 	// Path is he path for this endpoint.
-	Path = "/games/{" + definitions.GameIDParameter + "}"
+	Path = "/games/{" + api.GameIDParameter + "}"
 )
 
 type endpoint struct {
 }
 
 // Serve serves the request.
-func (e endpoint) Serve(r *http.Request) (definitions.Response, error) {
+func (e endpoint) Serve(r *http.Request) (api.Response, error) {
 
 	vars := mux.Vars(r)
-	gameID := vars[definitions.GameIDParameter]
+	gameID := vars[api.GameIDParameter]
 
-	game, err := data.FindGame(gameID)
+	game, err := service.FindGame(gameID)
 	if err != nil {
 		// TODO return 404
-		return definitions.GameResponse{}, err
+		return api.GameResponse{}, err
 	}
 
-	resp := definitions.NewGameResponse(*game)
+	resp := api.NewGameResponse(game)
 	return resp, nil
 }
 
@@ -48,6 +47,6 @@ func (e endpoint) Verb() string {
 }
 
 // NewEndpoint creates the handler for this endpoint.
-func NewEndpoint() endpoints.Endpoint {
+func NewEndpoint() api.Endpoint {
 	return endpoint{}
 }
