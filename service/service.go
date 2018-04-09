@@ -5,6 +5,7 @@ import (
 	"github.com/ablqk/santorini/data"
 	"errors"
 	"github.com/ablqk/santorini/api"
+	"fmt"
 )
 
 const maxHeight = 4
@@ -56,7 +57,7 @@ func Play(gameID string, playerID string, turn api.PlayRequest) (data.Game, erro
 
 func playBuild(game data.Game, x int, y int) (data.Game, error) {
 	if game.Board.Squares[x][y] == maxHeight {
-		return data.Game{}, errors.New("400: square height is at maximum (" + string(maxHeight) + ")")
+		return data.Game{}, fmt.Errorf("400: square height is at maximum (%d)", maxHeight)
 	}
 	game.Board.Squares[x][y]++
 	return game, nil
