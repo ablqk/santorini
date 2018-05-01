@@ -30,15 +30,19 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	resp, err := h.endpoint.Serve(r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	js, err := json.Marshal(resp)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	_, err = w.Write(js)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
+
 }
