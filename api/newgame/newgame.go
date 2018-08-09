@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"github.com/ablqk/santorini/api"
 	"github.com/ablqk/santorini/service"
+	"github.com/ablqk/santorini/lib/errors"
 )
 
 const (
@@ -16,10 +17,10 @@ type endpoint struct {
 }
 
 // Serve serves the request.
-func (e endpoint) Serve(r *http.Request) (api.Response, error) {
+func (e endpoint) Serve(r *http.Request) (api.Response, *errors.HTTPError) {
 	game, err := service.NewGame()
 	if err != nil {
-		return api.GameResponse{}, err
+		return api.Game{}, errors.Wrap(err, "cannot create new game")
 	}
 
 	resp := api.NewGameResponse(game)

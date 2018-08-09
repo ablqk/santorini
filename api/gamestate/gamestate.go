@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/ablqk/santorini/api"
 	"github.com/ablqk/santorini/service"
+	"github.com/ablqk/santorini/lib/errors"
 )
 
 const (
@@ -17,15 +18,14 @@ type endpoint struct {
 }
 
 // Serve serves the request.
-func (e endpoint) Serve(r *http.Request) (api.Response, error) {
+func (e endpoint) Serve(r *http.Request) (api.Response, *errors.HTTPError) {
 
 	vars := mux.Vars(r)
 	gameID := vars[api.GameIDParameter]
 
 	game, err := service.FindGame(gameID)
 	if err != nil {
-		// TODO return 404
-		return api.GameResponse{}, err
+		return api.Game{}, errors.Wrap(err, "cannot find game")
 	}
 
 	resp := api.NewGameResponse(game)

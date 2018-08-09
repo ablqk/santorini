@@ -3,6 +3,8 @@ package api
 import (
 	"net/http"
 	"encoding/json"
+	"fmt"
+	"github.com/ablqk/santorini/lib/errors"
 )
 
 // Endpoint defines a JSON endpoint.
@@ -10,7 +12,7 @@ type Endpoint interface {
 	Path() string
 	Verb() string
 	NominalResponse() int
-	Serve(r *http.Request) (Response, error)
+	Serve(r *http.Request) (Response, *errors.HTTPError)
 }
 
 // NewHandler creates a Handler for a given Endpoint.
@@ -29,18 +31,21 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := h.endpoint.Serve(r)
 	if err != nil {
+		fmt.Println("error while serving:", err)
+		http.Error(w, err.Error(), err.GetErrorValue())
+		return
+	}
+
+	js, errr := json.Marshal(resp)
+	if errr != nil {
+		fmt.Println("cannot marshal response:", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	js, err := json.Marshal(resp)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	_, err = w.Write(js)
-	if err != nil {
+	_, errr = w.Write(js)
+	if errr != nil {
+		fmt.Println("cannot write json:", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

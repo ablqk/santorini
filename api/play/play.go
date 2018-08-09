@@ -6,7 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/ablqk/santorini/api"
 	"github.com/ablqk/santorini/service"
-	"encoding/json"
+	"github.com/ablqk/santorini/lib/jsonhttp"
+	"github.com/ablqk/santorini/lib/errors"
 )
 
 const (
@@ -18,22 +19,21 @@ type endpoint struct {
 }
 
 // Serve serves the request.
-func (e endpoint) Serve(r *http.Request) (api.Response, error) {
+func (e endpoint) Serve(r *http.Request) (api.Response, *errors.HTTPError) {
 	vars := mux.Vars(r)
 	gameID := vars[api.GameIDParameter]
 	playerID := vars[api.PlayerIDParameter]
 
 	turn := api.PlayRequest{}
-	err := json.NewDecoder(r.Body).Decode(&turn)
+	err := jsonhttp.DecodeBody(r, &turn)
 	if err != nil {
-		return api.GameResponse{}, err
+		return api.Game{}, errors.Wrap(err, "cannot decode body")
 	}
 	defer r.Body.Close()
 
-
 	game, err := service.Play(gameID, playerID, turn)
 	if err != nil {
-		return api.GameResponse{}, err
+		return api.Game{}, errors.Wrap(err, "error while playing")
 	}
 
 	resp := api.NewGameResponse(game)

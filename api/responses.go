@@ -10,16 +10,17 @@ type Response interface {
 	Marshal() ([]byte, error)
 }
 
-// GameResponse describes a game and its state.
-type GameResponse struct {
+// Game describes a game and its state.
+type Game struct {
 	GameID         string `json:"gameID"`
 	NextPlayerID   string `json:"nextPlayerID"`
 	SecondPlayerID string `json:"secondPlayerID"`
 	Board          board  `json:"board"`
+	IsFinished     bool   `json:"isFinished"`
 }
 
-// Marshal transforms the GameResponse object into its json representation.
-func (gr GameResponse) Marshal() ([]byte, error) {
+// Marshal transforms the Game object into its json representation.
+func (gr Game) Marshal() ([]byte, error) {
 	resp, err := json.Marshal(gr)
 	if err != nil {
 		return nil, err
@@ -27,9 +28,9 @@ func (gr GameResponse) Marshal() ([]byte, error) {
 	return resp, nil
 }
 
-// NewGameResponse creates a GameResponse object.
-func NewGameResponse(game data.Game) GameResponse {
-	return GameResponse{
+// NewGameResponse creates a Game object.
+func NewGameResponse(game data.Game) Game {
+	return Game{
 		GameID:         game.GameID,
 		NextPlayerID:   game.Players[0].PlayerID,
 		SecondPlayerID: game.Players[1].PlayerID,

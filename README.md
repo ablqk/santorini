@@ -8,6 +8,31 @@ A RESTful-API-based version of the board game Santorini, by Dr. Gordon Hamilton,
 
 	go run cmd/cli/main.go
 
-# Work in progress
+# Work in progress : TO DO
 
-See [TODO list](../master/TODO.md)
+## Server side
+
+### API documentation
+* Update yaml file
+* Create quickstart guide
+
+### General
+* Unit tests please
+* Fix `http: multiple response.WriteHeader calls`
+
+### Endpoints
+
+### Play one turn
+* move a pawn
+
+## CLI client
+The idea is to implement a client to play in a console. Because why not.
+
+### Client
+* Manage errors
+* Connect as second player
+* Play as second player
+* Refresh as first player
+* Check end of game
+* Build dynamic IP:PORT url for HTTP calls
+

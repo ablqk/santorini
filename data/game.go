@@ -3,7 +3,7 @@ package data
 import (
 	"time"
 	"github.com/satori/go.uuid"
-	"errors"
+	"github.com/ablqk/santorini/lib/errors"
 )
 
 var games = map[string]Game{}
@@ -33,7 +33,7 @@ func (g *Game) WaitingPlayer() Player {
 }
 
 // CreateGame creates a new game and saves it.
-func CreateGame() (Game, error) {
+func CreateGame() (Game, *errors.HTTPError) {
 	id := uuid.Must(uuid.NewV4())
 
 	game := Game{
@@ -48,10 +48,10 @@ func CreateGame() (Game, error) {
 }
 
 // FindGame returns an existing game.
-func FindGame(id string) (*Game, error) {
+func FindGame(id string) (*Game, *errors.HTTPError) {
 	game, ok := games[id]
 	if !ok {
-		return nil, errors.New("Cannot find game with id " + id)
+		return nil, errors.New(errors.NotFoundE, "cannot find game with id " + id)
 	}
 	return &game, nil
 }
